@@ -15,7 +15,7 @@ void peek();
 int main() {
     int choice, value;
     while (1) {
-        printf("\n--- Circular Queue Menu ---\n");
+        printf("Circular Queue Menu\n");
         printf("1. Enqueue\n");
         printf("2. Dequeue\n");
         printf("3. Peek\n");
@@ -54,7 +54,7 @@ int main() {
                     printf("Queue is not full.\n");
                 break;
             case 7:
-                printf("Exiting...\n");
+                printf("Exiting\n");
                 exit(0);
             default:
                 printf("Invalid choice!\n");
@@ -68,7 +68,7 @@ void enqueue(int value) {
         printf("Queue Overflow! Cannot insert %d.\n", value);
         return;
     }
-    if (front == -1) {  // inserting first element
+    if (front == -1) {  
         front = 0;
     }
     rear = (rear + 1) % MAX;
@@ -83,7 +83,7 @@ void dequeue() {
     }
     printf("%d removed from the queue.\n", queue[front]);
 
-    if (front == rear) {  // only one element
+    if (front == rear) { 
         front = rear = -1;
     } else {
         front = (front + 1) % MAX;
