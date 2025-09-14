@@ -1,103 +1,74 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
+#include <cstdlib>
+using namespace std;
 #define MAX 5
+
 int stack[MAX];
 int top = -1;
-int isFull() {
-    return top == MAX - 1;
-}
-int isEmpty() {
-    return top == -1;
-}
+
+int isFull() { return top == MAX-1; }
+int isEmpty() { return top == -1; }
+
 void push(int value) {
-    if (isFull()) {
-        printf("\nStack Overflow! Cannot push %d\n", value);
-    } else {
+    if(isFull()) cout << "\nStack Overflow! Cannot push " << value << endl;
+    else {
         stack[++top] = value;
-        printf("%d pushed to stack\n", value);
+        cout << value << " pushed to stack" << endl;
     }
 }
 void pop() {
-    if (isEmpty()) {
-        printf("\nStack Underflow! Cannot pop\n");
-    } else {
-        printf("%d popped from stack\n", stack[top--]);
-    }
+    if(isEmpty()) cout << "\nStack Underflow! Cannot pop\n";
+    else cout << stack[top--] << " popped from stack\n";
 }
 void display() {
-    if (isEmpty()) {
-        printf("\nStack is empty\n");
-    } else {
-        printf("\nStack elements (top to bottom): ");
-        for (int i = top; i >= 0; i--) {
-            printf("%d ", stack[i]);
-        }
-        printf("\n");
+    if(isEmpty()) cout << "\nStack is empty\n";
+    else {
+        cout << "\nStack elements (top to bottom): ";
+        for(int i=top; i>=0; i--) cout << stack[i] << " ";
+        cout << endl;
     }
 }
 void peek() {
-    if (isEmpty()) {
-        printf("\nStack is empty\n");
-    } else {
-        printf("\nTop element: %d\n", stack[top]);
-    }
+    if(isEmpty()) cout << "\nStack is empty\n";
+    else cout << "\nTop element: " << stack[top] << endl;
 }
+
 int main() {
     int choice, value;
+    while(1){
+        cout << "\n--- Stack Menu ---\n";
+        cout << "1. Push\n2. Pop\n3. isEmpty\n4. isFull\n5. Display\n6. Peek\n7. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    while (1) {
-        printf("\n--- Stack Menu ---\n");
-        printf("1. Push\n");
-        printf("2. Pop\n");
-        printf("3. isEmpty\n");
-        printf("4. isFull\n");
-        printf("5. Display\n");
-        printf("6. Peek\n");
-        printf("7. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
+        switch(choice){
             case 1:
-                printf("Enter value to push: ");
-                scanf("%d", &value);
+                cout << "Enter value to push: ";
+                cin >> value;
                 push(value);
                 break;
-
             case 2:
                 pop();
                 break;
-
             case 3:
-                if (isEmpty())
-                    printf("\nStack is empty\n");
-                else
-                    printf("\nStack is not empty\n");
+                if(isEmpty()) cout << "\nStack is empty\n";
+                else cout << "\nStack is not empty\n";
                 break;
-
             case 4:
-                if (isFull())
-                    printf("\nStack is full\n");
-                else
-                    printf("\nStack is not full\n");
+                if(isFull()) cout << "\nStack is full\n";
+                else cout << "\nStack is not full\n";
                 break;
-
             case 5:
                 display();
                 break;
-
             case 6:
                 peek();
                 break;
-
             case 7:
-                printf("\nExiting...\n");
+                cout << "\nExiting...\n";
                 exit(0);
-
             default:
-                printf("\nInvalid choice! Try again.\n");
+                cout << "\nInvalid choice! Try again.\n";
         }
     }
-
-    return 0;
 }

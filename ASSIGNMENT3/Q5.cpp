@@ -1,22 +1,23 @@
-#include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
+#include <iostream>
+#include <cctype>
+#include <string>
+using namespace std;
 #define MAX 100
-int stack[MAX]; 
+
+int stack[MAX];
 int top = -1;
 
 void push(int x){ stack[++top]=x; }
 int pop(){ return stack[top--]; }
 
 int main(){
-    char exp[MAX];
-    printf("Enter postfix expression: ");
-    scanf("%s",exp);
+    string exp;
+    cout<<"Enter postfix expression: ";
+    cin>>exp;
 
-    for(int i=0; exp[i]; i++){
-        char c = exp[i];
+    for(char c : exp){
         if(isdigit(c)){
-            push(c-'0');  // char → int
+            push(c-'0');
         } else {
             int b=pop(), a=pop();
             switch(c){
@@ -27,6 +28,6 @@ int main(){
             }
         }
     }
-    printf("Result = %d\n", pop());
+    cout<<"Result = "<<pop()<<endl;
     return 0;
 }
