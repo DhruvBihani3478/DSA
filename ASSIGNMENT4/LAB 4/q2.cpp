@@ -16,11 +16,13 @@ void peek();
 
 int main() {
     int choice, value;
-    while (1) {
-        cout << "\n Queue Menu\n";
-        cout << "1. Enqueue \n";
-        cout << "2. Dequeue \n";
-        cout << "3. Peek \n";
+    bool running = true;
+
+    while (running) {
+        cout << "\nCircular Queue Menu\n";
+        cout << "1. Enqueue\n";
+        cout << "2. Dequeue\n";
+        cout << "3. Peek\n";
         cout << "4. Display Queue\n";
         cout << "5. Check if Empty\n";
         cout << "6. Check if Full\n";
@@ -44,20 +46,15 @@ int main() {
                 display();
                 break;
             case 5:
-                if (isEmpty())
-                    cout << "Queue is empty\n";
-                else
-                    cout << "Queue is not empty\n";
+                cout << (isEmpty() ? "Queue is empty.\n" : "Queue is not empty.\n");
                 break;
             case 6:
-                if (isFull())
-                    cout << "Queue is full\n";
-                else
-                    cout << "Queue is not full\n";
+                cout << (isFull() ? "Queue is full.\n" : "Queue is not full.\n");
                 break;
             case 7:
                 cout << "Exiting\n";
-                exit(0);
+                running = false;
+                break;
             default:
                 cout << "Invalid choice!\n";
         }
@@ -70,9 +67,10 @@ void enqueue(int value) {
         cout << "Queue Overflow! Cannot insert " << value << ".\n";
         return;
     }
-    if (front == -1)
+    if (front == -1) {
         front = 0;
-    rear++;
+    }
+    rear = (rear + 1) % MAX;
     queue[rear] = value;
     cout << value << " inserted into the queue.\n";
 }
@@ -83,10 +81,11 @@ void dequeue() {
         return;
     }
     cout << queue[front] << " removed from the queue.\n";
+
     if (front == rear) {
         front = rear = -1;
     } else {
-        front++;
+        front = (front + 1) % MAX;
     }
 }
 
@@ -95,7 +94,7 @@ bool isEmpty() {
 }
 
 bool isFull() {
-    return (rear == MAX - 1);
+    return (front == (rear + 1) % MAX);
 }
 
 void display() {
@@ -104,14 +103,18 @@ void display() {
         return;
     }
     cout << "Queue elements: ";
-    for (int i = front; i <= rear; i++)
+    int i = front;
+    while (true) {
         cout << queue[i] << " ";
+        if (i == rear) break;
+        i = (i + 1) % MAX;
+    }
     cout << endl;
 }
 
 void peek() {
     if (isEmpty()) {
-        cout << "Queue is empty\n";
+        cout << "Queue is empty.\n";
     } else {
         cout << "Front element is: " << queue[front] << endl;
     }
